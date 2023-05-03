@@ -74,7 +74,8 @@ fun RallyApp() {
                 }
                 composable(route = Bills.route) {
                     Bills.screen()
-                }        }
+                }
+            }
         }
     }
 }
