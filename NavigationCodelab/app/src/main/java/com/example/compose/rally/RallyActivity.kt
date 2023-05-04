@@ -33,7 +33,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.compose.rally.ui.accounts.AccountsScreen
+import com.example.compose.rally.ui.bills.BillsScreen
 import com.example.compose.rally.ui.components.RallyTabRow
+import com.example.compose.rally.ui.overview.OverviewScreen
 import com.example.compose.rally.ui.theme.RallyTheme
 
 /**
@@ -61,31 +64,27 @@ fun RallyApp() {
         val currentBackStack by navController.currentBackStackEntryAsState()
         val currentDestination = currentBackStack?.destination
 
-        Scaffold(
-            topBar = {
-                RallyTabRow(
-                    allScreens = rallyTabRowScreens,
-                    onTabSelected = { newScreen ->
-                        navController.navigateSingleTopTo(newScreen.route)
-                    },
-                    currentScreen = rallyTabRowScreens.find { it.route == currentDestination?.route }
-                        ?: Overview
-                )
-            }
-        ) { innerPadding ->
+        Scaffold(topBar = {
+            RallyTabRow(allScreens = rallyTabRowScreens,
+                onTabSelected = { newScreen ->
+                    navController.navigateSingleTopTo(newScreen.route)
+                },
+                currentScreen = rallyTabRowScreens.find { it.route == currentDestination?.route }
+                    ?: Overview)
+        }) { innerPadding ->
             NavHost(
                 navController = navController,
                 startDestination = Overview.route,
                 modifier = Modifier.padding(innerPadding)
             ) {
                 composable(route = Overview.route) {
-                    Overview.screen()
+                    OverviewScreen()
                 }
                 composable(route = Accounts.route) {
-                    Accounts.screen()
+                    AccountsScreen()
                 }
                 composable(route = Bills.route) {
-                    Bills.screen()
+                    BillsScreen()
                 }
             }
         }
