@@ -56,7 +56,7 @@ fun NavHostController.navigateSingleTopTo(route: String) =
 @Composable
 fun RallyApp() {
     RallyTheme {
-        var currentScreen: RallyDestination by remember { mutableStateOf(Overview) }
+        //var currentScreen: RallyDestination by remember { mutableStateOf(Overview) }
         val navController = rememberNavController()
         val currentBackStack by navController.currentBackStackEntryAsState()
         val currentDestination = currentBackStack?.destination
@@ -66,8 +66,10 @@ fun RallyApp() {
                 RallyTabRow(
                     allScreens = rallyTabRowScreens,
                     onTabSelected = { newScreen ->
-                        navController.navigateSingleTopTo(newScreen.route) },
-                    currentScreen = currentScreen
+                        navController.navigateSingleTopTo(newScreen.route)
+                    },
+                    currentScreen = rallyTabRowScreens.find { it.route == currentDestination?.route }
+                        ?: Overview
                 )
             }
         ) { innerPadding ->
